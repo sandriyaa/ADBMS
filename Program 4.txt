@@ -1,0 +1,61 @@
+SQL> create table Department(Department_id int primary key,Department_name varchar(30),HOD varchar(30));
+
+Table created.
+
+SQL> create table Employee(Employee_id int primary key,name,Department_id int foreign key references Department(Department_id));
+create table Employee(Employee_id int primary key,name,Department_id int foreign key references Department(Department_id))
+                                                                         *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> create table Employee(Employee_id int primary key,name varchar(30),Department_id int foreign key references Department(Department_id));
+create table Employee(Employee_id int primary key,name varchar(30),Department_id int foreign key references Department(Department_id))
+                                                                                     *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> create table Employee(Employee_id int primary key,name varchar(30),Department_id int foreign key reference Department(Department_id));
+create table Employee(Employee_id int primary key,name varchar(30),Department_id int foreign key reference Department(Department_id))
+                                                                                     *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> create table Employee(Employee_id int primary key,name varchar(30),Department_id int,foreign key(Department_id)references Department(Department_id)salary number(7,2));
+create table Employee(Employee_id int primary key,name varchar(30),Department_id int,foreign key(Department_id)references Department(Department_id)salary number(7,2))
+                                                                                                                                                   *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> create table Employee(Employee_id int primary key,name varchar(30),Department_id int,foreign key(Department_id)references Department(Department_id),salary number(7,2));
+create table Employee(Employee_id int primary key,name varchar(30),Department_id int,foreign key(Department_id)references Department(Department_id),salary number(7,2))
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> create table Employee(Employee_id int primary key,name varchar(30),Department_id int,foreign key(Department_id)references Department(Department_id),salary number(7,2));
+create table Employee(Employee_id int primary key,name varchar(30),Department_id int,foreign key(Department_id)references Department(Department_id),salary number(7,2))
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> drop table Employee;
+
+Table dropped.
+
+SQL> create table Employee(Employee_id int primary key,name varchar(30),Department_id int,foreign key(Department_id)references Department(Department_id),salary number(7,2));
+
+Table created.
+
+SQL> desc Employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEE_ID                               NOT NULL NUMBER(38)
+ NAME                                               VARCHAR2(30)
+ DEPARTMENT_ID                                      NUMBER(38)
+ SALARY                                             NUMBER(7,2)

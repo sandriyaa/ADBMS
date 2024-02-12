@@ -1,0 +1,386 @@
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Thu Feb 8 14:25:45 2024
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> connect system
+Enter password:
+Connected.
+SQL> drop table student
+  2  drop table student
+  3  connect system
+  4
+SQL>
+SQL> drop table student;
+drop table student
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> create table student(Roll_no int primary key,name varchar(30),course varchar(30),year number(4));
+
+Table created.
+
+SQL> alter table student add email varchar(25);
+
+Table altered.
+
+SQL> insert into student values(&Roll_no,'&name','&course',&year,'&email');
+Enter value for roll_no: 1
+Enter value for name: Santa
+Enter value for course: MCA
+Enter value for year: 2023
+Enter value for email: santa@gmail.com
+old   1: insert into student values(&Roll_no,'&name','&course',&year,'&email')
+new   1: insert into student values(1,'Santa','MCA',2023,'santa@gmail.com')
+
+1 row created.
+
+SQL> /
+Enter value for roll_no: 2
+Enter value for name: Meryl
+Enter value for course: MCA
+Enter value for year: 2024
+Enter value for email: meryl@gmail.com
+old   1: insert into student values(&Roll_no,'&name','&course',&year,'&email')
+new   1: insert into student values(2,'Meryl','MCA',2024,'meryl@gmail.com')
+
+1 row created.
+
+SQL> select * from student;
+
+   ROLL_NO NAME                           COURSE
+---------- ------------------------------ ------------------------------
+      YEAR EMAIL
+---------- -------------------------
+         1 Santa                          MCA
+      2023 santa@gmail.com
+
+         2 Meryl                          MCA
+      2024 meryl@gmail.com
+
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLL_NO                                   NOT NULL NUMBER(38)
+ NAME                                               VARCHAR2(30)
+ COURSE                                             VARCHAR2(30)
+ YEAR                                               NUMBER(4)
+ EMAIL                                              VARCHAR2(25)
+
+SQL> alter table student add place varchar(25);
+
+Table altered.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLL_NO                                   NOT NULL NUMBER(38)
+ NAME                                               VARCHAR2(30)
+ COURSE                                             VARCHAR2(30)
+ YEAR                                               NUMBER(4)
+ EMAIL                                              VARCHAR2(25)
+ PLACE                                              VARCHAR2(25)
+
+SQL> alter table student drop column email;
+
+Table altered.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLL_NO                                   NOT NULL NUMBER(38)
+ NAME                                               VARCHAR2(30)
+ COURSE                                             VARCHAR2(30)
+ YEAR                                               NUMBER(4)
+ PLACE                                              VARCHAR2(25)
+
+SQL> alter table student rename column year to year_of_admn;
+
+Table altered.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLL_NO                                   NOT NULL NUMBER(38)
+ NAME                                               VARCHAR2(30)
+ COURSE                                             VARCHAR2(30)
+ YEAR_OF_ADMN                                       NUMBER(4)
+ PLACE                                              VARCHAR2(25)
+
+SQL> alter table student modify year_of_admn int;
+
+Table altered.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLL_NO                                   NOT NULL NUMBER(38)
+ NAME                                               VARCHAR2(30)
+ COURSE                                             VARCHAR2(30)
+ YEAR_OF_ADMN                                       NUMBER(38)
+ PLACE                                              VARCHAR2(25)
+
+SQL> drop student;
+drop student
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option
+
+
+SQL> drop table student;
+
+Table dropped.
+
+SQL> desc student;
+ERROR:
+ORA-04043: object student does not exist
+
+
+SQL> truncate table student;
+truncate table student
+               *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select * from student;
+select * from student
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> create table employee(emp_id,name,dept,salary,city);
+create table employee(emp_id,name,dept,salary,city)
+                      *
+ERROR at line 1:
+ORA-02263: need to specify the datatype for this column
+
+
+SQL> create table employee(emp_id int primary key,name varchar(30),dept varchar(30),salary number(7,2),city varchar(30));
+
+Table created.
+
+SQL> desc student;
+ERROR:
+ORA-04043: object student does not exist
+
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_ID                                    NOT NULL NUMBER(38)
+ NAME                                               VARCHAR2(30)
+ DEPT                                               VARCHAR2(30)
+ SALARY                                             NUMBER(7,2)
+ CITY                                               VARCHAR2(30)
+
+SQL> insert into employee values(&emp_id,'&name','&dept','&salary','&city');
+Enter value for emp_id: 101
+Enter value for name: Arun
+Enter value for dept: MCA
+Enter value for salary: 7000
+Enter value for city: Banglore
+old   1: insert into employee values(&emp_id,'&name','&dept','&salary','&city')
+new   1: insert into employee values(101,'Arun','MCA','7000','Banglore')
+
+1 row created.
+
+SQL> 102
+SP2-0226: Invalid line number
+SQL> /
+Enter value for emp_id: 102
+Enter value for name: Riya
+Enter value for dept: EC
+Enter value for salary: 8000
+Enter value for city: Kochi
+old   1: insert into employee values(&emp_id,'&name','&dept','&salary','&city')
+new   1: insert into employee values(102,'Riya','EC','8000','Kochi')
+
+1 row created.
+
+SQL> /
+Enter value for emp_id: 103
+Enter value for name: Anju
+Enter value for dept: EEE
+Enter value for salary: 9000
+Enter value for city: Mumbai
+old   1: insert into employee values(&emp_id,'&name','&dept','&salary','&city')
+new   1: insert into employee values(103,'Anju','EEE','9000','Mumbai')
+
+1 row created.
+
+SQL> /
+Enter value for emp_id: 104
+Enter value for name: Rahul
+Enter value for dept: MCA
+Enter value for salary: 6000
+Enter value for city: Kochi
+old   1: insert into employee values(&emp_id,'&name','&dept','&salary','&city')
+new   1: insert into employee values(104,'Rahul','MCA','6000','Kochi')
+
+1 row created.
+
+SQL> /
+Enter value for emp_id: 105
+Enter value for name: Ravi
+Enter value for dept: CA
+Enter value for salary: 7900
+Enter value for city: Pune
+old   1: insert into employee values(&emp_id,'&name','&dept','&salary','&city')
+new   1: insert into employee values(105,'Ravi','CA','7900','Pune')
+
+1 row created.
+
+SQL> select * from employee;
+
+    EMP_ID NAME                           DEPT
+---------- ------------------------------ ------------------------------
+    SALARY CITY
+---------- ------------------------------
+       101 Arun                           MCA
+      7000 Banglore
+
+       102 Riya                           EC
+      8000 Kochi
+
+       103 Anju                           EEE
+      9000 Mumbai
+
+
+    EMP_ID NAME                           DEPT
+---------- ------------------------------ ------------------------------
+    SALARY CITY
+---------- ------------------------------
+       104 Rahul                          MCA
+      6000 Kochi
+
+       105 Ravi                           CA
+      7900 Pune
+
+
+SQL> select * from employee where emp_id=101;
+
+    EMP_ID NAME                           DEPT
+---------- ------------------------------ ------------------------------
+    SALARY CITY
+---------- ------------------------------
+       101 Arun                           MCA
+      7000 Banglore
+
+
+SQL> select * from employee dept="MCA";
+select * from employee dept="MCA"
+                           *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> select * from employee where dept="MCA";
+select * from employee where dept="MCA"
+                                  *
+ERROR at line 1:
+ORA-00904: "MCA": invalid identifier
+
+
+SQL> select from employee where dept='MCA';
+select from employee where dept='MCA'
+       *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> select * from employee where dept='MCA';
+
+    EMP_ID NAME                           DEPT
+---------- ------------------------------ ------------------------------
+    SALARY CITY
+---------- ------------------------------
+       101 Arun                           MCA
+      7000 Banglore
+
+       104 Rahul                          MCA
+      6000 Kochi
+
+
+SQL> select * from employee salary between 7000 and 9000;
+select * from employee salary between 7000 and 9000
+                              *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> select from employee salary between 7000 and 9000;
+select from employee salary between 7000 and 9000
+       *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> select * from employee where salary between 7000 and 9000;
+
+    EMP_ID NAME                           DEPT
+---------- ------------------------------ ------------------------------
+    SALARY CITY
+---------- ------------------------------
+       101 Arun                           MCA
+      7000 Banglore
+
+       102 Riya                           EC
+      8000 Kochi
+
+       103 Anju                           EEE
+      9000 Mumbai
+
+
+    EMP_ID NAME                           DEPT
+---------- ------------------------------ ------------------------------
+    SALARY CITY
+---------- ------------------------------
+       105 Ravi                           CA
+      7900 Pune
+
+
+SQL> select * from employee order by name;
+
+    EMP_ID NAME                           DEPT
+---------- ------------------------------ ------------------------------
+    SALARY CITY
+---------- ------------------------------
+       103 Anju                           EEE
+      9000 Mumbai
+
+       101 Arun                           MCA
+      7000 Banglore
+
+       104 Rahul                          MCA
+      6000 Kochi
+
+
+    EMP_ID NAME                           DEPT
+---------- ------------------------------ ------------------------------
+    SALARY CITY
+---------- ------------------------------
+       105 Ravi                           CA
+      7900 Pune
+
+       102 Riya                           EC
+      8000 Kochi
+
+
+SQL> update employee set salary=250;
+
+5 rows updated.
+
+SQL> alter table employee add joining_date date;
+
+Table altered.
+
+SQL> commit;
+
+Commit complete.
+
+SQL>
