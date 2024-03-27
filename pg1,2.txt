@@ -1,0 +1,208 @@
+
+SQL> create table student (rollno int,name varchar(15),course varchar(10),year int);
+
+Table created.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLLNO                                             NUMBER(38)
+ NAME                                               VARCHAR2(15)
+ COURSE                                             VARCHAR2(10)
+ YEAR                                               NUMBER(38)
+
+SQL> alter table student add age int;
+
+Table altered.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLLNO                                             NUMBER(38)
+ NAME                                               VARCHAR2(15)
+ COURSE                                             VARCHAR2(10)
+ YEAR                                               NUMBER(38)
+ AGE                                                NUMBER(38)
+
+SQL> alter table student drop column age;
+
+Table altered.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLLNO                                             NUMBER(38)
+ NAME                                               VARCHAR2(15)
+ COURSE                                             VARCHAR2(10)
+ YEAR                                               NUMBER(38)
+
+SQL> alter table student rename column name to sname;
+
+Table altered.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLLNO                                             NUMBER(38)
+ SNAME                                              VARCHAR2(15)
+ COURSE                                             VARCHAR2(10)
+ YEAR                                               NUMBER(38)
+
+SQL> drop table student;
+
+Table dropped.
+
+SQL> desc student;
+ERROR:
+ORA-04043: object student does not exist
+
+
+SQL> create table student (rollno int,name varchar(15),course varchar(10),year int);
+
+Table created.
+
+SQL> insert into student values(1,'shigil','MCA',2024);
+
+1 row created.
+
+SQL> select *from student;
+
+    ROLLNO NAME            COURSE           YEAR
+---------- --------------- ---------- ----------
+         1 shigil          MCA              2024
+
+
+SQL> truncate table student;
+
+Table truncated.
+
+SQL> select *from student;
+
+no rows selected
+
+SQL> create table employee(employeeID int,name varchar(15),department varchar(15),salary number(7,2),city varchar(15));
+
+Table created.
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEEID                                         NUMBER(38)
+ NAME                                               VARCHAR2(15)
+ DEPARTMENT                                         VARCHAR2(15)
+ SALARY                                             NUMBER(7,2)
+ CITY                                               VARCHAR2(15)
+SQL> insert into employee values(1,'shigil','HR',10000,'Banglore');
+
+1 row created.
+
+SQL> insert into employee values(1,'sheetal','HR',10000,'Banglore');
+
+1 row created.
+
+SQL> insert into employee values(3,'santa','HR',10000,'Banglore');
+
+1 row created.
+
+SQL> insert into employee values(4,'santa','sales',5000,'Banglore');
+
+1 row created.
+
+SQL> insert into employee values(5,'sujith','HR',5000,'Banglore');
+
+1 row created.
+
+SQL> select * from employee;
+
+EMPLOYEEID NAME            DEPARTMENT          SALARY CITY
+---------- --------------- --------------- ---------- ---------------
+         1 shigil          HR                   10000 Banglore
+         1 sheetal         HR                   10000 Banglore
+         3 santa           HR                   10000 Banglore
+         4 santa           sales                 5000 Banglore
+         5 sujith          HR                    5000 Banglore
+
+SQL> select * from employee order by name;
+
+EMPLOYEEID NAME            DEPARTMENT          SALARY CITY
+---------- --------------- --------------- ---------- ---------------
+         3 santa           HR                   10000 Banglore
+         4 santa           sales                 5000 Banglore
+         1 sheetal         HR                   10000 Banglore
+         1 shigil          HR                   10000 Banglore
+         5 sujith          HR                    5000 Banglore
+
+SQL> insert into employee values(5,'sreeReshmi','HR',5000,'Banglore');
+
+1 row created.
+
+SQL> select * from employee order by name;
+
+EMPLOYEEID NAME            DEPARTMENT          SALARY CITY
+---------- --------------- --------------- ---------- ---------------
+         3 santa           HR                   10000 Banglore
+         4 santa           sales                 5000 Banglore
+         1 sheetal         HR                   10000 Banglore
+         1 shigil          HR                   10000 Banglore
+         5 sreeReshmi      HR                    5000 Banglore
+         5 sujith          HR                    5000 Banglore
+
+6 rows selected.
+
+
+
+SQL> update employee set salary=salary+250;
+
+6 rows updated.
+
+SQL> select * from emplyee;
+select * from emplyee
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select * from employee;
+
+EMPLOYEEID NAME            DEPARTMENT          SALARY CITY
+---------- --------------- --------------- ---------- ---------------
+         1 shigil          HR                   10250 Banglore
+         1 sheetal         HR                   10250 Banglore
+         3 santa           HR                   10250 Banglore
+         4 santa           sales                 5250 Banglore
+         5 sujith          HR                    5250 Banglore
+         5 sreeReshmi      HR                    5250 Banglore
+
+6 rows selected.
+
+SQL> alter table employee add jdate date;
+
+Table altered.
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEEID                                         NUMBER(38)
+ NAME                                               VARCHAR2(15)
+ DEPARTMENT                                         VARCHAR2(15)
+ SALARY                                             NUMBER(7,2)
+ CITY                                               VARCHAR2(15)
+ JDATE                                              DATE
+
+SQL> select * from employee where salary between 50000 and 10000;
+
+no rows selected
+
+SQL> select * from employee where salary between 5000 and 10000;
+
+EMPLOYEEID NAME            DEPARTMENT          SALARY CITY            JDATE
+---------- --------------- --------------- ---------- --------------- ---------
+         4 santa           sales                 5250 Banglore
+         5 sujith          HR                    5250 Banglore
+         5 sreeReshmi      HR                    5250 Banglore
+
+SQL> select * from employee where department='sales';
+
+EMPLOYEEID NAME            DEPARTMENT          SALARY CITY            JDATE
+---------- --------------- --------------- ---------- --------------- ---------
+         4 santa           sales                 5250 Banglore

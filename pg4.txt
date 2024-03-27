@@ -1,0 +1,187 @@
+SQL> create table category (category_id int primary key, category_name varchar(20),description varchar(25));
+
+Table created.
+
+SQL> desc category
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CATEGORY_ID                               NOT NULL NUMBER(38)
+ CATEGORY_NAME                                      VARCHAR2(20)
+ DESCRIPTION                                        VARCHAR2(25)
+SQL> create table product(product_id int primary key,product_name varchar(20),category_id int,foreign key(category_id)references category(category_id),price int);
+
+Table created.
+
+SQL> desc product
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PRODUCT_ID                                NOT NULL NUMBER(38)
+ PRODUCT_NAME                                       VARCHAR2(20)
+ CATEGORY_ID                                        NUMBER(38)
+ PRICE                                              NUMBER(38)
+
+SQL> commit
+  2  ;
+
+Commit complete.
+
+SQL> insert into category values(&id,'&name','&description');
+Enter value for id: 1
+Enter value for name: food
+Enter value for description: food items
+old   1: insert into category values(&id,'&name','&description')
+new   1: insert into category values(1,'food','food items')
+
+1 row created.
+
+SQL> /
+Enter value for id: 2
+Enter value for name: cloth
+Enter value for description: clothing items
+old   1: insert into category values(&id,'&name','&description')
+new   1: insert into category values(2,'cloth','clothing items')
+
+1 row created.
+
+SQL> /
+Enter value for id: 3
+Enter value for name: gun
+Enter value for description: powerful machine guns
+old   1: insert into category values(&id,'&name','&description')
+new   1: insert into category values(3,'gun','powerful machine guns')
+
+1 row created.
+
+SQL> select * from category;
+
+CATEGORY_ID CATEGORY_NAME        DESCRIPTION
+----------- -------------------- -------------------------
+          1 food                 food items
+          2 cloth                clothing items
+          3 gun                  powerful machine guns
+
+SQL> insert into product values(&id,'&name',&catid,&price\);
+Enter value for id: 11
+Enter value for name: ak47
+Enter value for catid: 3
+Enter value for price: 45000
+old   1: insert into product values(&id,'&name',&catid,&price\)
+new   1: insert into product values(11,'ak47',3,45000\)
+insert into product values(11,'ak47',3,45000\)
+                                            *
+ERROR at line 1:
+ORA-00911: invalid character
+
+
+SQL> insert into product values(&id,'&name',&catid,&price);
+Enter value for id: 1
+Enter value for name: Ak47
+Enter value for catid: 3
+Enter value for price: 45000
+old   1: insert into product values(&id,'&name',&catid,&price)
+new   1: insert into product values(1,'Ak47',3,45000)
+
+1 row created.
+
+SQL> /
+Enter value for id: 22
+Enter value for name: jeans
+Enter value for catid: 2
+Enter value for price: 800
+old   1: insert into product values(&id,'&name',&catid,&price)
+new   1: insert into product values(22,'jeans',2,800)
+
+1 row created.
+
+SQL> /
+Enter value for id: 15
+Enter value for name: biriyani
+Enter value for catid: 1
+Enter value for price: 150
+old   1: insert into product values(&id,'&name',&catid,&price)
+new   1: insert into product values(15,'biriyani',1,150)
+
+1 row created.
+
+SQL> /
+Enter value for id: 31
+Enter value for name: kuzhimandhi
+Enter value for catid: 1
+Enter value for price: 220
+old   1: insert into product values(&id,'&name',&catid,&price)
+new   1: insert into product values(31,'kuzhimandhi',1,220)
+
+1 row created.
+
+SQL> select * from product;
+
+PRODUCT_ID PRODUCT_NAME         CATEGORY_ID      PRICE
+---------- -------------------- ----------- ----------
+         1 Ak47                           3      45000
+        22 jeans                          2        800
+        15 biriyani                       1        150
+        31 kuzhimandhi                    1        220
+
+SQL> select product_id,product_name,category_name from product natural join category;
+
+PRODUCT_ID PRODUCT_NAME         CATEGORY_NAME
+---------- -------------------- --------------------
+         1 Ak47                 gun
+        22 jeans                cloth
+        15 biriyani             food
+        31 kuzhimandhi          food
+
+SQL> select product_id,product_name,category_name from product inner join category on product.category_id=category.category_id and category_id=1;
+select product_id,product_name,category_name from product inner join category on product.category_id=category.category_id and category_id=1
+                                                                                                                              *
+ERROR at line 1:
+ORA-00918: column ambiguously defined
+
+
+SQL> select product_id,product_name,category_name from product inner join category on product.category_id=category.category_id ;
+
+PRODUCT_ID PRODUCT_NAME         CATEGORY_NAME
+---------- -------------------- --------------------
+        31 kuzhimandhi          food
+        15 biriyani             food
+        22 jeans                cloth
+         1 Ak47                 gun
+
+SQL> select product_id,product_name,category_name from product natural  left outer join category;
+
+PRODUCT_ID PRODUCT_NAME         CATEGORY_NAME
+---------- -------------------- --------------------
+        31 kuzhimandhi          food
+        15 biriyani             food
+        22 jeans                cloth
+         1 Ak47                 gun
+
+SQL> select product_id,product_name,category_name from product natural  right outer join category;
+
+PRODUCT_ID PRODUCT_NAME         CATEGORY_NAME
+---------- -------------------- --------------------
+         1 Ak47                 gun
+        22 jeans                cloth
+        15 biriyani             food
+        31 kuzhimandhi          food
+                                plant
+
+SQL> select product_id,product_name,category_name from category natural  left outer join product;
+
+PRODUCT_ID PRODUCT_NAME         CATEGORY_NAME
+---------- -------------------- --------------------
+         1 Ak47                 gun
+        22 jeans                cloth
+        15 biriyani             food
+        31 kuzhimandhi          food
+                                plant
+
+SQL> select product_id,product_name,category_name from product natural  full outer join category;
+
+PRODUCT_ID PRODUCT_NAME         CATEGORY_NAME
+---------- -------------------- --------------------
+        31 kuzhimandhi          food
+        15 biriyani             food
+        22 jeans                cloth
+         1 Ak47                 gun
+                                plant

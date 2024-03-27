@@ -1,0 +1,82 @@
+SQL> select * from product1;
+
+      P_ID P_NAME                S_ID     CAT_ID       UNIT      PRICE
+---------- --------------- ---------- ---------- ---------- ----------
+         1 chais                    1          1         36         18
+         2 chang                    1          1         15         19
+         3 aniseed syrup            1          2         20         10
+         4 cajun seasoning          2          2         30         22
+         5 gumbo mix                2          2         45         21
+
+SQL> select max(price),min(price) from product1 where cat_id=1;
+
+MAX(PRICE) MIN(PRICE)
+---------- ----------
+        19         18
+
+SQL> select count(*) from product1 where cat_id=1;
+
+  COUNT(*)
+----------
+         2
+
+SQL> select max(price),min(price) from product1 where cat_id=2;
+
+MAX(PRICE) MIN(PRICE)
+---------- ----------
+        22         10
+
+SQL> select count(*) from product1 where price>0;
+
+  COUNT(*)
+----------
+         5
+
+SQL> select count(*) from product1 where price>20;
+
+  COUNT(*)
+----------
+         2
+
+SQL> select sum(price) from product1 where s_id=1;
+
+SUM(PRICE)
+----------
+        47
+SQL> alter table product1 modify price float;
+
+Table altered.
+
+SQL> update product1 set price=21.35 where price=21;
+
+1 row updated.
+
+SQL> select * from product1;
+
+      P_ID P_NAME                S_ID     CAT_ID       UNIT      PRICE
+---------- --------------- ---------- ---------- ---------- ----------
+         1 chais                    1          1         36         18
+         2 chang                    1          1         15         19
+         3 aniseed syrup            1          2         20         10
+         4 cajun seasoning          2          2         30         22
+         5 gumbo mix                2          2         45      21.35
+
+SQL> select avg(price) from product1 ;
+
+AVG(PRICE)
+----------
+     18.07
+
+SQL> select avg(price) from product1 where cat_id=1;
+
+AVG(PRICE)
+----------
+      18.5
+
+SQL> select p_name from product1 where price>(select avg(price) from product1);
+
+P_NAME
+---------------
+chang
+cajun seasoning
+gumbo mix

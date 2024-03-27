@@ -1,0 +1,228 @@
+
+SQL> create table department (dep_id int primary key,dep_name varchar(10),city varchar(10));
+
+Table created.
+
+SQL> desc department;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEP_ID                                    NOT NULL NUMBER(38)
+ DEP_NAME                                           VARCHAR2(10)
+ CITY                                               VARCHAR2(10)
+SQL>  create table employe (emp_id int primary key,emp_name varchar(10),dep_id int ,foreign key(dep_id) references department(dep_id),slary int);
+
+Table created.
+
+SQL> insert into department values(&id,'&name','&city');
+Enter value for id: 1
+Enter value for name: sales
+Enter value for city: kochi
+old   1: insert into department values(&id,'&name','&city')
+new   1: insert into department values(1,'sales','kochi')
+
+1 row created.
+
+SQL> /
+Enter value for id: 2
+Enter value for name: hr
+Enter value for city: banglore
+old   1: insert into department values(&id,'&name','&city')
+new   1: insert into department values(2,'hr','banglore')
+
+1 row created.
+
+SQL> /
+Enter value for id: 3
+Enter value for name: accounting
+Enter value for city: chennai
+old   1: insert into department values(&id,'&name','&city')
+new   1: insert into department values(3,'accounting','chennai')
+
+1 row created.
+
+SQL> /
+Enter value for id: 4
+Enter value for name: marketing
+Enter value for city: pune
+old   1: insert into department values(&id,'&name','&city')
+new   1: insert into department values(4,'marketing','pune')
+
+1 row created.
+ insert into department values(5,'production','kolkata');
+
+1 row created.
+
+SQL> select *from department;
+
+    DEP_ID DEP_NAME   CITY
+---------- ---------- ----------
+         1 sales      kochi
+         2 hr         banglore
+         3 accounting chennai
+         4 marketing  pune
+         5 production kolkata
+
+SQL> insert into employe values(101,'manu',6,50000);
+insert into employe values(101,'manu',6,50000)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SYSTEM.SYS_C004027) violated - parent key not found
+
+
+SQL> insert into employe values(101,'manu',1,50000);
+
+1 row created.
+
+SQL> insert into employe values(&id,'&name',&dep_id,&salary);
+Enter value for id: 102
+Enter value for name: shigil
+Enter value for dep_id: 2
+Enter value for salary: 60000
+old   1: insert into employe values(&id,'&name',&dep_id,&salary)
+new   1: insert into employe values(102,'shigil',2,60000)
+
+1 row created.
+
+SQL> /
+Enter value for id: 103
+Enter value for name: sheetal
+Enter value for dep_id: 3
+Enter value for salary: 50000
+old   1: insert into employe values(&id,'&name',&dep_id,&salary)
+new   1: insert into employe values(103,'sheetal',3,50000)
+
+1 row created.
+
+SQL> /
+Enter value for id: 104
+Enter value for name: sujith
+Enter value for dep_id: 5
+Enter value for salary: 40000
+old   1: insert into employe values(&id,'&name',&dep_id,&salary)
+new   1: insert into employe values(104,'sujith',5,40000)
+
+1 row created.
+
+SQL> /
+Enter value for id: 105
+Enter value for name: sreereshmi
+Enter value for dep_id: 4
+Enter value for salary: 40000
+old   1: insert into employe values(&id,'&name',&dep_id,&salary)
+new   1: insert into employe values(105,'sreereshmi',4,40000)
+
+1 row created.
+
+SQL> select*from employe;
+
+    EMP_ID EMP_NAME       DEP_ID      SLARY
+---------- ---------- ---------- ----------
+       101 manu                1      50000
+       102 shigil              2      60000
+       103 sheetal             3      50000
+       104 sujith              5      40000
+       105 sreereshmi          4      40000
+
+
+SQL> update employe set emp_name='santa' where emp_name='manu';
+
+1 row updated.
+
+SQL> select*from employe;
+
+    EMP_ID EMP_NAME       DEP_ID      SLARY
+---------- ---------- ---------- ----------
+       101 santa               1      50000
+       102 shigil              2      60000
+       103 sheetal             3      50000
+       104 sujith              5      40000
+       105 sreereshmi          4      40000
+
+SQL> delete from employe where emp_id=101;
+
+1 row deleted.
+
+SQL> select*from employe;
+
+    EMP_ID EMP_NAME       DEP_ID      SLARY
+---------- ---------- ---------- ----------
+       102 shigil              2      60000
+       103 sheetal             3      50000
+       104 sujith              5      40000
+       105 sreereshmi          4      40000
+ delete from employe where emp_id=101;
+
+SQL>  select emp_name,dep_name from employe,department ;
+
+EMP_NAME   DEP_NAME
+---------- ----------
+shigil     sales
+shigil     hr
+shigil     accounting
+shigil     marketing
+shigil     production
+sheetal    sales
+sheetal    hr
+sheetal    accounting
+sheetal    marketing
+sheetal    production
+sujith     sales
+
+EMP_NAME   DEP_NAME
+---------- ----------
+sujith     hr
+sujith     accounting
+sujith     marketing
+sujith     production
+sreereshmi sales
+sreereshmi hr
+sreereshmi accounting
+sreereshmi marketing
+sreereshmi production
+
+20 rows selected.
+
+SQL> select emp_name,dep_name from employe,department where employe.dep_id=department.dep_id;
+
+EMP_NAME   DEP_NAME
+---------- ----------
+shigil     hr
+sheetal    accounting
+sreereshmi marketing
+sujith     production
+
+SQL> select emp_name,city from employe,department where city='kolkata' and  employe.dep_id=department.dep_id;
+
+EMP_NAME   CITY
+---------- ----------
+sujith     kolkata
+
+SQL>  delete from employe where emp_name='sreereshmi';
+
+1 row deleted.
+
+SQL> select * from employe;
+
+    EMP_ID EMP_NAME       DEP_ID      SLARY
+---------- ---------- ---------- ----------
+       102 shigil              2      60000
+       103 sheetal             3      50000
+       104 sujith              5      40000
+
+SQL> update employe set slary=slary+500 where dep_id=2 ;
+
+1 row updated.
+
+SQL> select * from employe;
+
+    EMP_ID EMP_NAME       DEP_ID      SLARY
+---------- ---------- ---------- ----------
+       102 shigil              2      60500
+       103 sheetal             3      50000
+       104 sujith              5      40000
+
+SQL> select *  from employe,department where employe.slary>50000 and employe.dep_id=department.dep_id;
+
+    EMP_ID EMP_NAME       DEP_ID      SLARY     DEP_ID DEP_NAME   CITY
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+       102 shigil              2      60500          2 hr         banglore

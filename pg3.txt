@@ -1,0 +1,153 @@
+ create table customer (id int,name varchar(15),city varchar(10),country varchar(10),age number(2),salary int);
+
+Table created.
+
+SQL> desc customer;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER(38)
+ NAME                                               VARCHAR2(15)
+ CITY                                               VARCHAR2(10)
+ COUNTRY                                            VARCHAR2(10)
+ AGE                                                NUMBER(2)
+ SALARY                                             NUMBER(38)
+ ADDRESS                                            VARCHAR2(30)
+
+SQL> insert into customer values(&id,'&name','&city','&country',&age,&salary);
+Enter value for id: 1
+Enter value for name: purushu
+Enter value for city: kochi
+Enter value for country: india
+Enter value for age: 22
+Enter value for salary: 35600
+old   1: insert into customer values(&id,'&name','&city','&country',&age,&salary)
+new   1: insert into customer values(1,'purushu','kochi','india',22,35600)
+
+1 row created.
+
+SQL> /
+Enter value for id: 2
+Enter value for name: surya
+Enter value for city: kollam
+Enter value for country: india
+Enter value for age: 32
+Enter value for salary: 35000
+old   1: insert into customer values(&id,'&name','&city','&country',&age,&salary)
+new   1: insert into customer values(2,'surya','kollam','india',32,35000)
+
+1 row created.
+
+SQL> /
+Enter value for id: 3
+Enter value for name: priya
+Enter value for city: nasik
+Enter value for country: india
+Enter value for age: 19
+Enter value for salary: 34567
+old   1: insert into customer values(&id,'&name','&city','&country',&age,&salary)
+new   1: insert into customer values(3,'priya','nasik','india',19,34567)
+
+1 row created.
+
+
+SQL> /
+Enter value for id: 4
+Enter value for name: shigil
+Enter value for city: kollam
+Enter value for country: india
+Enter value for age: 20
+Enter value for salary: 50000
+old   1: insert into customer values(&id,'&name','&city','&country',&age,&salary)
+new   1: insert into customer values(4,'shigil','kollam','india',20,50000)
+
+1 row created.
+
+SQL> /
+Enter value for id: 5
+Enter value for name: sheetal
+Enter value for city: kottayam
+Enter value for country: india
+Enter value for age: 21
+Enter value for salary: 45000
+old   1: insert into customer values(&id,'&name','&city','&country',&age,&salary)
+new   1: insert into customer values(5,'sheetal','kottayam','india',21,45000)
+
+1 row created.
+
+SQL> select * from customer;
+
+        ID NAME            CITY       COUNTRY           AGE     SALARY ADDRESS
+---------- --------------- ---------- ---------- ---------- ---------- ---------------
+         1 purushu         kochi      india              22      35600 kattuparambil
+         2 surya           kollam     india              32      35000 2plaparambil
+         3 priya           nasik      india              19      34567 thottil
+         4 shigil          kollam     india              20      50000 parunthaniyil
+         5 sheetal         kottayam   india              21      45000 thekkeal
+
+
+SQL> select * from customer where name like 'p%';
+
+
+        ID NAME            CITY       COUNTRY           AGE     SALARY ADDRESS
+---------- --------------- ---------- ---------- ---------- ---------- ---------------
+         1 purushu         kochi      india              22      35600 kattuparambil
+         3 priya           nasik      india              19      34567 thottil
+
+
+SQL> select * from customer where name like '%ya%';
+
+        ID NAME            CITY       COUNTRY           AGE     SALARY ADDRESS
+---------- --------------- ---------- ---------- ---------- ---------- ---------------
+         2 surya           kollam     india              32      35000 2plaparambil
+         3 priya           nasik      india              19      34567 thottil
+
+SQL> select * from customer where city like '%i';
+
+        ID NAME            CITY       COUNTRY           AGE     SALARY ADDRESS
+---------- --------------- ---------- ---------- ---------- ---------- ---------------
+         1 purushu         kochi      india              22      35600 kattuparambil
+
+SQL> select * from customer where age like '2_';
+
+        ID NAME            CITY       COUNTRY           AGE     SALARY ADDRESS
+---------- --------------- ---------- ---------- ---------- ---------- ---------------
+         1 purushu         kochi      india              22      35600 kattuparambil
+         4 shigil          kollam     india              20      50000 parunthaniyil
+         5 sheetal         kottayam   india              21      45000 thekkeal
+
+SQL> select * from customer where salary like '%50%';
+
+        ID NAME            CITY       COUNTRY           AGE     SALARY ADDRESS
+---------- --------------- ---------- ---------- ---------- ---------- ---------------
+         2 surya           kollam     india              32      35000 2plaparambil
+         4 shigil          kollam     india              20      50000 parunthaniyil
+         5 sheetal         kottayam   india              21      45000 thekkeal
+
+SQL> select * from customer where city like 'na_ik';
+
+        ID NAME            CITY       COUNTRY           AGE     SALARY ADDRESS
+---------- --------------- ---------- ---------- ---------- ---------- ---------------
+         3 priya           nasik      india              19      34567 thottil
+
+SQL> select * from customer where salary like '3__00';
+
+        ID NAME            CITY       COUNTRY           AGE     SALARY ADDRESS
+---------- --------------- ---------- ---------- ---------- ---------- ---------------
+         1 purushu         kochi      india              22      35600 kattuparambil
+         2 surya           kollam     india              32      35000 2plaparambil
+
+SQL> select * from customer where name like '____a';
+
+        ID NAME            CITY       COUNTRY           AGE     SALARY ADDRESS
+---------- --------------- ---------- ---------- ---------- ---------- ---------------
+         2 surya           kollam     india              32      35000 2plaparambil
+         3 priya           nasik      india              19      34567 thottil
+
+SQL> select * from customer where name not like 'priya';
+
+        ID NAME            CITY       COUNTRY           AGE     SALARY ADDRESS
+---------- --------------- ---------- ---------- ---------- ---------- ---------------
+         1 purushu         kochi      india              22      35600 kattuparambil
+         2 surya           kollam     india              32      35000 2plaparambil
+         4 shigil          kollam     india              20      50000 parunthaniyil
+         5 sheetal         kottayam   india              21      45000 thekkeal
