@@ -1,0 +1,123 @@
+
+SQL> create table account(accno number(6)primary key,name varchar(10),salary number(6));
+
+Table created.
+
+SQL> insert into account values(12345,'Meryl',65000);
+
+1 row created.
+
+SQL> insert into account values(12346,'Santa',50000);
+
+1 row created.
+
+SQL> insert into account values(12347,'Malavika',60000);
+
+1 row created.
+
+SQL> insert into account values(12348,'Saniya',55000);
+
+1 row created.
+
+SQL> insert into account values(12349,'Alia',55000);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from account;
+
+     ACCNO NAME           SALARY
+---------- ---------- ----------
+     12345 Meryl           65000
+     12346 Santa           50000
+     12347 Malavika        60000
+     12348 Saniya          55000
+     12349 Alia            55000
+
+SQL> insert into account values(12350,'Sandriya',75000);
+
+1 row created.
+
+SQL> insert into account values(12351,'Anura',70000);
+
+1 row created.
+SQL> savepoint s;
+
+Savepoint created.
+
+SQL> insert into account values(12352,'Anju',70000);
+
+1 row created.
+
+SQL> insert into account values(12353,'Nitya',75000);
+
+1 row created.
+
+SQL> select * from account;
+
+     ACCNO NAME           SALARY
+---------- ---------- ----------
+     12345 Meryl           65000
+     12346 Santa           50000
+     12347 Malavika        60000
+     12348 Saniya          55000
+     12349 Alia            55000
+     12350 Sandriya        75000
+     12351 Anura           70000
+     12352 Anju            70000
+     12353 Nitya           75000
+
+9 rows selected.
+
+SQL> rollback to s;
+
+Rollback complete.
+
+SQL> select * from account;
+
+     ACCNO NAME           SALARY
+---------- ---------- ----------
+     12345 Meryl           65000
+     12346 Santa           50000
+     12347 Malavika        60000
+     12348 Saniya          55000
+     12349 Alia            55000
+     12350 Sandriya        75000
+     12351 Anura           70000
+
+7 rows selected.
+
+SQL> rollback to s;
+
+Rollback complete.
+
+SQL> select * from account;
+
+     ACCNO NAME           SALARY
+---------- ---------- ----------
+     12345 Meryl           65000
+     12346 Santa           50000
+     12347 Malavika        60000
+     12348 Saniya          55000
+     12349 Alia            55000
+     12350 Sandriya        75000
+     12351 Anura           70000
+
+7 rows selected.
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from account;
+
+     ACCNO NAME           SALARY
+---------- ---------- ----------
+     12345 Meryl           65000
+     12346 Santa           50000
+     12347 Malavika        60000
+     12348 Saniya          55000
+     12349 Alia            55000
