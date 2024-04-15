@@ -1,0 +1,20 @@
+SET SERVEROUTPUT ON;
+declare
+r integer:=&r;
+pi constant number(6,2) :=3.14;
+j integer:=0;
+i integer;
+area number(10,3):=0;
+begin
+if(r>0)then
+for i in 1..r
+loop
+j:=r*i;
+end loop;
+area:=pi*j;
+dbms_output.put_line('area = '||area);
+else
+dbms_output.put_line('enter valid radius');
+end if;
+end;
+/
