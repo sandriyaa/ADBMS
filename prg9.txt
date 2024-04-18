@@ -1,0 +1,10 @@
+SET SERVEROUTPUT ON;
+declare
+r integer:=&r;
+pi constant number(6,2) :=3.14;
+area number(10,3):=0;
+begin
+area:=pi*r*r;
+dbms_output.put_line('area = '||area);
+end;
+/

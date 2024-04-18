@@ -1,0 +1,19 @@
+SET SERVEROUTPUT ON;
+declare
+n integer:=&n;
+j integer:=0;
+i integer;
+fact number(5):=1;
+begin
+if(n>0)then
+for i in 1..n
+loop
+fact:=fact*i;
+end loop;
+
+dbms_output.put_line('Factorial = '||fact);
+else
+dbms_output.put_line('Not possible');
+end if;
+end;
+/

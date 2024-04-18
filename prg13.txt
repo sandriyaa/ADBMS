@@ -1,0 +1,17 @@
+SET SERVEROUTPUT ON;
+Declare
+i number(5);
+str varchar(10);
+rev varchar(10);
+len number(2);
+Begin
+str := &str;
+len := len(str)
+For i in rev 1..len
+Loop
+rev := rev || SUBSTR(str,i, 1);
+End loop;
+Dbms_output.Put_line(‘given no’ || str);
+Dbms_output.Put_line(‘Reverse’ ||rev);
+End;
+/
